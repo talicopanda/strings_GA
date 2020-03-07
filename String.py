@@ -3,6 +3,7 @@ from typing import List
 import string
 import doctest
 
+
 class String:
     """Creates a String object"""
     content: str
@@ -17,7 +18,7 @@ class String:
         self.score = self.calc_score()
 
     def __str__(self) -> str:
-        return f'self.content ({self.score})'
+        return f'{self.content} ({self.score})'
 
     def judge(self, word: string):
         word.setScore((self.correct_place_score(word.content) +
@@ -25,7 +26,7 @@ class String:
                       / (self.right_letter_score * len(word.content)
                          + self.correct_place_score * len(word.content)))
 
-    def score_for_right_place(self, word: str, goal: str) -> int:
+    def score_for_right_place(self, word: str) -> int:
         """
         >>> ftns = String("Po p ")
         >>> print(ftns.score)
@@ -36,7 +37,7 @@ class String:
         """
         score = 0
         for i in range(len(word)):
-            if goal[i] == word[i]:
+            if self.goal[i] == word[i]:
                 score += self.correct_place_score
         return score
 
@@ -54,19 +55,16 @@ class String:
         """
         error_for_each_letter = {}
         for char in self.goal:
-            error_for_each_letter[char] = abs(self.goal.count(char) - self.content.count(char))
+            error_for_each_letter[char] = abs(
+                self.goal.count(char) - self.content.count(char))
         total_error = 0
         for key in error_for_each_letter:
             total_error += error_for_each_letter[key]
         return max((len(self.goal) * self.right_letter_score) - total_error, 0)
 
-    def calc_score(self, content: str, goal: str):
-        size = len(content)
-        return (self.score_for_right_place(content, goal) +
-                 self.right_letters_score(content, goal))/\
-                (size*self.correct_place_score + size*self.right_letter_score)
-
-if __name__ == "__main__":
-    doctest.testmod()
-
-
+    def calc_score(self):
+        size = len(self.content)
+        return (self.score_for_right_place(self.content) +
+                self.right_letters_score()) / \
+               (
+                           size * self.correct_place_score + size * self.right_letter_score)
