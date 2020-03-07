@@ -40,19 +40,23 @@ class String:
                 score += self.correct_place_score
         return score
 
-    def right_letters_score(self, word: str, goal: str) -> int:
+    def right_letters_score(self) -> int:
+        """
+        >>> s = String('pope')
+        >>> s.right_letter_score
+        """
         error_for_each_letter = {}
-        for char in goal:
-            error_for_each_letter[char] = abs(goal.count(char) - word.count(char))
+        for char in self.goal:
+            error_for_each_letter[char] = abs(self.goal.count(char) - self.content.count(char))
         total_error = 0
         for key in error_for_each_letter:
             total_error += error_for_each_letter[key]
-        return max((len(goal) * self.right_letter_score) - total_error, 0)
+        return max((len(self.goal) * self.right_letter_score) - total_error, 0)
 
-    def calc_score(self, content: str, goal: str):
-        size = len(content)
-        self.score = (self.score_for_right_place(content, goal) +
-                 self.right_letters_score(content, goal))/\
+    def calc_score(self):
+        size = len(self.content)
+        self.score = (self.score_for_right_place(self.content, self.goal) +
+                 self.right_letters_score(self.content, self.goal))/\
                 (size*self.correct_place_score + size*self.right_letter_score)
 
 if __name__ == "__main__":
