@@ -12,9 +12,9 @@ class String:
     def __init__(self, content: str):
         self.correct_place_score = 3
         self.right_letter_score = 1
-        self.goal = "poop"
+        self.goal = "poop "
         self.content = content
-        self.score = calc_score(content, self.goal)
+        self.score = self.calc_score(content, self.goal)
 
     def __str__(self) -> str:
         return f'self.content ({self.score})'
@@ -28,10 +28,10 @@ class String:
     def score_for_right_place(self, word: str, goal: str) -> int:
         """
         >>> ftns = String("Po p ")
-        >>> ftns.score
+        >>> print(ftns.score)
         12
         >>> ftns = String("     ")
-        >>> ftns.score
+        >>> print(ftns.score)
         6
         """
         score = 0
@@ -50,7 +50,10 @@ class String:
         return max((len(goal) * self.right_letter_score) - total_error, 0)
 
     def calc_score(self, content: str, goal: str):
-        pass
+        size = len(content)
+        self.score = (self.score_for_right_place(content, goal) +
+                 self.right_letters_score(content, goal))/\
+                (size*self.correct_place_score + size*self.right_letter_score)
 
 if __name__ == "__main__":
     doctest.testmod()
