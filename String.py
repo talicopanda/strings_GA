@@ -28,11 +28,12 @@ class String:
     def score_for_right_place(self, word: str, goal: str) -> int:
         """
         >>> ftns = String("Po p ")
-        >>> print(ftns.score)
-        12
-        >>> ftns = String("     ")
-        >>> print(ftns.score)
-        6
+        >>> ftns.score_for_right_place("Po p ", "poop ")
+        9
+        >>> ftns.score_for_right_place("p", " ")
+        0
+        >>> ftns.score_for_right_place(" ", " ")
+        3
         """
         score = 0
         for i in range(len(word)):
@@ -51,7 +52,7 @@ class String:
 
     def calc_score(self, content: str, goal: str):
         size = len(content)
-        self.score = (self.score_for_right_place(content, goal) +
+        return (self.score_for_right_place(content, goal) +
                  self.right_letters_score(content, goal))/\
                 (size*self.correct_place_score + size*self.right_letter_score)
 
