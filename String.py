@@ -9,10 +9,10 @@ class String:
     score: float
     goal: str
 
-    def __init__(self, content: str):
+    def __init__(self, content: str, goal: str):
         self.correct_place_score = 3
         self.right_letter_score = 1
-        self.goal = "poop "
+        self.goal = goal
         self.content = content
         self.score = self.calc_score(content, self.goal)
 
@@ -28,12 +28,11 @@ class String:
     def score_for_right_place(self, word: str, goal: str) -> int:
         """
         >>> ftns = String("Po p ")
-        >>> ftns.score_for_right_place("Po p ", "poop ")
-        9
-        >>> ftns.score_for_right_place("p", " ")
-        0
-        >>> ftns.score_for_right_place(" ", " ")
-        3
+        >>> print(ftns.score)
+        12
+        >>> ftns = String("     ")
+        >>> print(ftns.score)
+        6
         """
         score = 0
         for i in range(len(word)):
@@ -41,14 +40,18 @@ class String:
                 score += self.correct_place_score
         return score
 
-    def right_letters_score(self, word: str, goal: str) -> int:
+    def right_letters_score(self) -> int:
+        """
+        >>> s = String('pope')
+        >>> s.right_letter_score
+        """
         error_for_each_letter = {}
-        for char in goal:
-            error_for_each_letter[char] = abs(goal.count(char) - word.count(char))
+        for char in self.goal:
+            error_for_each_letter[char] = abs(self.goal.count(char) - self.content.count(char))
         total_error = 0
         for key in error_for_each_letter:
             total_error += error_for_each_letter[key]
-        return max((len(goal) * self.right_letter_score) - total_error, 0)
+        return max((len(self.goal) * self.right_letter_score) - total_error, 0)
 
     def calc_score(self, content: str, goal: str):
         size = len(content)

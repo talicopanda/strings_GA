@@ -12,16 +12,14 @@ class Population:
     pop_size: int
     population: List
     letters: str
+    id: int
 
-    def __init__(self, parent: String, pop_size: int):
+    def __init__(self, parent: String, pop_size: int, id: int):
         self.parent = parent
         self.pop_size = pop_size
         self.population = []
         self.letters = string.ascii_lowercase + ' '
-
-    def first_string(self, size: int) -> str:
-        """Generates a random string of 'abcdefghijklmnopqrstuvwxyz '."""
-        return ''.join(random.choice(self.letters) for _ in range(size))
+        self.id = id
 
     def mutate(self, parent, characters=1) -> str:
         """Generates a mutation from parent"""
@@ -41,7 +39,8 @@ class Population:
             self.population.append(self.mutate(self.parent))
         return self.population
 
-
+    def fittest(self):
+        
 
 
 if __name__ == '__main__':
