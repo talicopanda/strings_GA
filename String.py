@@ -14,7 +14,7 @@ class String:
         self.right_letter_score = 1
         self.goal = goal
         self.content = content
-        self.score = self.calc_score(content, self.goal)
+        self.score = self.calc_score()
 
     def __str__(self) -> str:
         return f'self.content ({self.score})'
@@ -43,7 +43,14 @@ class String:
     def right_letters_score(self) -> int:
         """
         >>> s = String('pope')
-        >>> s.right_letter_score
+        >>> s.right_letter_score()
+        2
+        >>> s2 = String('lmrt')
+        >>> s2.right_letter_score()
+        0
+        >>> s3 = String('ptuv')
+        >>> s3.right_letter_score()
+        1
         """
         error_for_each_letter = {}
         for char in self.goal:
