@@ -39,9 +39,12 @@ class Population:
             self.population.append(self.mutate(self.parent))
         return self.population
 
-    def fittest(self):
-        
-
+    def fittest(self) -> String:
+        best = self.population[0]
+        for obj in self.population:
+            if obj.score > best.score:
+                best = obj
+        return best
 
 if __name__ == '__main__':
     tales = Population('tales', 50)
