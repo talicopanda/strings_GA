@@ -9,10 +9,10 @@ class String:
     score: float
     goal: str
 
-    def __init__(self, content: str):
+    def __init__(self, content: str, goal: str):
         self.correct_place_score = 3
         self.right_letter_score = 1
-        self.goal = "poop "
+        self.goal = goal
         self.content = content
         self.score = self.calc_score(content, self.goal)
 
