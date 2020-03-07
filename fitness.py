@@ -21,8 +21,24 @@ class fitness:
 
 
     def scoreForRightPlace(self, word: str) -> int:
-        for i in range(len(word)):
-            if self.goal
+        pass
+        #for i in range(len(word)):
+        #    if self.goal
+
+    def scoreForRightLetters(self, word: str) -> int:
+        error_for_each_letter = {}
 
 
-    def scoreForRightLetters(self, word: str) ->int:
+        for char in self.goal:
+            error_for_each_letter[char] = abs(self.goal.count(char) - word.count(char))
+
+        total_error = 0
+        for key in error_for_each_letter:
+            total_error += error_for_each_letter[key]
+
+
+        return max((len(self.goal) * self.scoreForRightLetter) - total_error, 0)
+
+
+
+
