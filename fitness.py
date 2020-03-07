@@ -1,5 +1,6 @@
 """Fitness model"""
 import string
+import doctest
 
 class fitness:
     scoreForRightPlace: int
@@ -20,9 +21,26 @@ class fitness:
 
 
 
+
     def scoreForRightPlace(self, word: str) -> int:
+        """
+
+        :param word:
+        :return:
+        >>> ftns = fitness("Hello hi")
+        >>> ftns.scoreForRightPlace("hello hi")
+        24
+        """
+        score = 0
         for i in range(len(word)):
-            if self.goal
+            if self.goal[i] == word[i]:
+                score += self.scoreForRightPlace
+
 
 
     def scoreForRightLetters(self, word: str) ->int:
+        pass
+
+
+if __name__ == "main":
+
