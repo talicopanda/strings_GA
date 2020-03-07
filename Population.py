@@ -2,12 +2,18 @@ import random
 from typing import List
 import string
 
+import String
+
 
 class Population:
     """Creates a population based on mutation of a single element
     """
+    parent: String
+    pop_size: int
+    population: List
+    letters: str
 
-    def __init__(self, parent: str, pop_size: int):
+    def __init__(self, parent: String, pop_size: int):
         self.parent = parent
         self.pop_size = pop_size
         self.population = []
@@ -17,9 +23,9 @@ class Population:
         """Generates a random string of 'abcdefghijklmnopqrstuvwxyz '."""
         return ''.join(random.choice(self.letters) for _ in range(size))
 
-    def mutate_string(self, parent, characters = 1) -> str:
+    def mutate(self, parent, characters=1) -> str:
         """Generates a mutation from parent"""
-        mutation = list(parent)
+        mutation = list(parent.content)
         previous_indexes = []
         for _ in range(characters):
             index = random.randint(0, len(parent) - 1)
@@ -27,11 +33,12 @@ class Population:
                 index = random.randint(0, len(parent) - 1)
             previous_indexes.append(index)
             mutation[index] = random.choice(self.letters)
-        return "".join(mutation)
+        content = "".join(mutation)
+        return String(content)
 
-    def generate_pop(self) -> List[str]: #List[String]
+    def generate_pop(self) -> List[String]:
         for _ in range(self.pop_size):
-            self.population.append(self.mutate_string(self.parent))
+            self.population.append(self.mutate(self.parent))
         return self.population
 
 
